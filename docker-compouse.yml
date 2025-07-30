@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    enviroment:
+      - DATABASE_URL=postgres://auth_user:auth_pass@db:5432/auth_notification_db
+
+db:
+  image: postgres:15
+  container_name: pg_auth_notification
+  restart: always
+  enviroment:
+    POSTGRES_USER: auth_user
+    POSTGRES_PASS: auth_pass
+    POSTGRES_DB: auth_notification_db
+  ports:
+    - "5432:5432"
+  volumes:
+    - pg_data:/var/lib/postgresql/data
