@@ -1,7 +1,10 @@
 package main
 
 import (
+	userhandlers "auth_notification_service/internal/handlers/user"
 	userrepository "auth_notification_service/internal/repositories/user"
+	userroutes "auth_notification_service/internal/routes/user"
+	userservice "auth_notification_service/internal/services/user"
 	"context"
 	"os"
 
@@ -24,10 +27,9 @@ func main() {
 	if err != nil {
 		logrus.Fatal("Error initializing user repository:", err)
 	}
-	_ = userRepository
-	// service
-	// handler
-	// routes
+	userService := userservice.NewUserService(userRepository)
+	userHandler := userhandlers.NewUserHandler(userService, ctx)
+	userroutes.SetupRoutes(app, userHandler)
 
 	port := "8080"
 	logrus.WithFields(logrus.Fields{
