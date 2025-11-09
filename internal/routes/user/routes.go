@@ -8,9 +8,11 @@ import (
 )
 
 func SetupRoutes(app *fiber.App, h *userhandlers.UserHandler) {
-	userGroup := app.Group("/users")
+	app.Post("/register", h.AddNewUser)
+	app.Post("/login", h.LogInUser)
+	app.Get("/logout", h.LogoutUser)
+
+	userGroup := app.Group("/users", auth.AuthMiddleware)
 	userGroup.Get("/", h.AllUsers)
-	userGroup.Get("/:id", auth.AuthMiddleware, h.UserById,)
-	userGroup.Post("", h.AddNewUser)
-	userGroup.Post("/login", h.LogInUser)
+	userGroup.Get("/:id", h.UserById)
 }

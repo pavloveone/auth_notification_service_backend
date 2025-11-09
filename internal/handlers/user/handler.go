@@ -85,3 +85,11 @@ func (h *UserHandler) LogInUser(c *fiber.Ctx) error {
 	}
 	return c.Status(fiber.StatusOK).JSON(user)
 }
+
+func (h *UserHandler) LogoutUser(c *fiber.Ctx) error {
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"accessToken":  "",
+		"refreshToken": "",
+		"message":      "logout successful",
+	})
+}

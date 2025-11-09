@@ -29,3 +29,7 @@ func (s UserService) AddNewUser(ctx context.Context, request models.UserCreateRe
 func (s UserService) LogInUser(ctx context.Context, request models.UserLogInRequest) (models.UserLogInResponse, error) {
 	return s.repo.LogIn(ctx, request)
 }
+
+func (s UserService) LogOutUser(ctx context.Context) (bool, error) {
+	return s.repo.LogOut(ctx)
+}

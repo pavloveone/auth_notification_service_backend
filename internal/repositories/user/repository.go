@@ -122,3 +122,7 @@ func (r *UserRepository) LogIn(ctx context.Context, request models.UserLogInRequ
 		RefreshToken: refresh,
 	}, nil
 }
+
+func (r *UserRepository) LogOut(ctx context.Context) (bool, error) {
+	return true, nil
+}
